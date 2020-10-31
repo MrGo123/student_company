@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.mapper.GraduateMapper">
+
+    <resultMap id="GraduateMap" type="Graduate">
+        <id property="num" column="graduate_num"/>
+        <result property="id" column="graduate_id"/>
+        <result property="name" column="graduate_name"/>
+        <result property="age" column="graduate_age"/>
+        <result property="phone" column="graduate_phone"/>
+        <result property="academy" column="graduate_academy"/>
+        <result property="major" column="graduate_major"/>
+    </resultMap>
+    <!--select all graduate-->
+    <select id="showAllGrad" resultMap="GraduateMap">
+        select * from studentcompanydb.graduate;
+    </select>
+    <!--search by num-->
+    <select id="searchNum" resultMap="GraduateMap" parameterType="java.lang.String">
+        select * from studentcompanydb.graduate where graduate_num = #{num};
+    </select>
+    <!--search by id-->
+    <select id="searchId" resultMap="GraduateMap" parameterType="java.lang.String">
+        select * from studentcompanydb.graduate where graduate_id = #{id};
+    </select>
+    <!--search by name-->
+    <select id="searchName" resultMap="GraduateMap" parameterType="java.lang.String">
+        select * from studentcompanydb.graduate where graduate_name like #{name};
+    </select>
+    <!--insert a graduate-->
+    <insert id="insertGraduate" parameterType="com.zy.model.Graduate">
+        insert into graduate(graduate_num,graduate_id,graduate_name,graduate_age,graduate_phone,graduate_academy,graduate_major)
+        value(#{num}, #{id}, #{name},  #{age}, #{phone}, #{academy}, #{major});
+    </insert>
+    <!--delete a graduate by id-->
+    <delete id="deleteGraduateId" parameterType="java.lang.String">
+        delete from graduate where graduate_id = #{id};
+    </delete>
+    <!--delete a graduate by num-->
+    <delete id="deleteGraduateNum" parameterType="java.lang.String">
+        delete from graduate where graduate_num = #{num};
+    </delete>
+    <!--delete a graduate by name-->
+    <delete id="deleteGraduateName" parameterType="java.lang.String">
+        delete from graduate where graduate_name = #{name};
+    </delete>
+    <!--update a graduate's value name,age,phone,academy,num by num-->
+    <update id="updateGraduateNum">
+        update graduate set
+        graduate_name = #{name},
+        graduate_age = #{age},
+        graduate_phone = #{phone},
+        graduate_academy = #{academy},
+        graduate_major = #{major}
+        where graduate_num = #{num};
+    </update>
+</mapper>

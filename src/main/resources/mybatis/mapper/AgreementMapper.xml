@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.mapper.AgreementMapper">
+
+    <resultMap id="AgreementMap" type="Agreement">
+        <id property="id" column="agreement_id"/>
+        <result property="signDate" column="sign_date"/>
+        <result property="graduateId" column="graduate_id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="salary" column="salary"/>
+    </resultMap>
+
+    <!--resultMap： 结果映射，把查找结果的列映射到对象model的属性上。-->
+    <select id="showAllAgr" resultMap="AgreementMap">
+        select * from studentcompanydb.agreement;
+    </select>
+
+    <select id="searchId" resultMap="AgreementMap" parameterType="java.lang.String">
+        select * from studentcompanydb.agreement where agreement_id like #{id};
+    </select>
+
+    <insert id="insertAgreement" parameterType="com.zy.model.Agreement">
+        insert into agreement value (#{id},#{signDate},#{graduateId},#{companyId},#{salary});
+    </insert>
+
+    <delete id="deleteAgreement" parameterType="java.lang.String">
+    delete from agreement where agreement_id = #{id};
+    </delete>
+
+    <update id="updateAgreement">
+        update agreement set
+        sign_date = #{signDate},
+        graduate_id = #{graduateId},
+        company_id=#{companyId},
+        salary=#{salary}
+        where agreement_id = #{id};
+    </update>
+</mapper>

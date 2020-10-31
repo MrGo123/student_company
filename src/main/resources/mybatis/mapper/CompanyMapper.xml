@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.mapper.CompanyMapper">
+
+    <resultMap id="CompanyMap" type="Company">
+        <id property="id" column="company_id"/>
+        <result property="name" column="company_name"/>
+        <result property="phone" column="company_phone"/>
+        <result property="addr" column="company_addr"/>
+    </resultMap>
+
+    <select id="showAllCom" resultMap="CompanyMap">
+        select * from studentcompanydb.company;
+    </select>
+
+    <select id="searchCompanyId" resultMap="CompanyMap" parameterType="java.lang.String">
+        select * from studentcompanydb.company where company_id like #{id};
+    </select>
+
+    <select id="searchCompanyName" resultMap="CompanyMap" parameterType="java.lang.String">
+         select * from studentcompanydb.company where company_name like #{name};
+    </select>
+    <insert id="insertCompany" parameterType="com.zy.model.Company">
+    insert into company
+    value (#{id},#{name},#{phone},#{addr});
+    </insert>
+
+    <delete id="deleteCompany" parameterType="java.lang.String">
+     delete from company where company_id = #{id};
+    </delete>
+
+    <update id="updateCompany">
+        update company set
+        company_name=#{name},
+        company_phone=#{phone},
+        company_addr=#{addr}
+        where company_id=#{id}
+    </update>
+</mapper>
